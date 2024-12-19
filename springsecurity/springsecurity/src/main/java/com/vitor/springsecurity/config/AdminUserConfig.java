@@ -2,6 +2,7 @@ package com.vitor.springsecurity.config;
 
 import java.util.Set;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,7 +15,7 @@ import com.vitor.springsecurity.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
 @Configuration
-public class AdminUserConfig {
+public class AdminUserConfig implements CommandLineRunner {
     
     private RoleRepository roleRepository;
 
@@ -30,15 +31,15 @@ public class AdminUserConfig {
     }
 
     
-    @Override
     @Transactional
+    @Override
     public void run(String... args) throws Exception {
        var roleAdmin = roleRepository.findByName(Role.Values.ADMIN.name());
 
        var userAdmin = userRepository.findByUsername("admin");
 
        userAdmin.ifPresentOrElse(
-            (user) -> {
+            user -> {
                 System.out.println("admin already exists");
             },
             () -> {
