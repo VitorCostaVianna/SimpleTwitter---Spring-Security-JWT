@@ -1,1 +1,1 @@
-# SimpleTwitter---Spring-Security-JWT
+# Spring Security 6 + JWT + OAUTH 2
